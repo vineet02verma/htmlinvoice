@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+    <link rel="stylesheet" href="main.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+
+<body>
+    <div class="btn">
+        <button id="p_btn">Print</button>
+        <button id="r_btn" onclick="addRow()">Add Row</button>
+        <button id="d_btn" onclick="deleteRow()">Delete Row</button>
+        <button id="reset_btn" onclick="resetForm()">Reset</button>
+        <button onclick="getAllValues()">Check</button>
+        
+
+    </div>
+
+    <div class="invoice-box">
+        <form action="" >
+        <!-- <form action="" onsubmit="Challan(event)" > -->
+            <table id="invoiceTable">
+                <tr class="top">
+                    <td colspan="7">
+                        <table class="title">
+                            <tr>
+                                <td colspan="6" class="shade border center bold">
+                                    General Challan
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="5" class="shade center border bold txt-left">
+                                    Aval Fashion House
+                                </td>
+                                <!-- id -->
+                                <td colspan="2" class="shade border txt-right" id="gc_id">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="5" class="shade center border txt-left">
+                                    <p>A-33, NARAINA INDUSTRIAL AREA PAHSE 2</p>
+                                </td>
+                                <!-- date -->
+                                <td colspan="2" class="shade border txt-right" id="gc_date"></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr class="information">
+                    <td colspan="7">
+                        <table>
+                            <tr>
+                                <td colspan="2" class="shade center bold" style="padding-top: 2px;">
+                                    Party Name
+                                </td>
+                                <td colspan="5"  style="display: flex;">
+                                    <input class="bold" style="width: 100%; text-align: left; padding-left: 10px;" type="text" name="partyName" >
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="shade txt-center bold" style="padding-top: 20px;">
+                                    Party Address
+                                </td>
+                                <td colspan="5" style="display: flex;">
+                                    <textarea style="flex-basis: 100%; height: 50px; resize: none; padding: 10px 10px; font-size: 16px;" name="partyAddress"  ></textarea>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <tr class="heading shade ">
+                    <td class="center border">ITEM NAME</td>
+                    <td class="center border">HSN CODE</td>
+                    <td class="center border">UOM</td>
+                    <td class="center border">QTY</td>
+                    <td class="center border">RATE</td>
+                    <td class="center border">TAX</td>
+                    <td class="center border">TOTAL</td>
+                </tr>
+
+                <tr class="border shade">
+                    <!-- <tr class=''>
+                        <td><input type="text" name="itemName" ></td>
+                        <td><input type="text" name="itemHsn" ></td>
+                        <td><input type="text" name="itemUom" ></td>
+                        <td><input type="text" name="itemqty" ></td>
+                        <td><input type="text" name="itemrate" ></td>
+                        <td><input type="text" name="tax"></td>
+                        <td><input type="text" name="itemtotal"></td>
+                    </tr>
+                    <tr class=''>
+                        <td ><input type="text" name="itemName" ></td>
+                        <td><input type="text" name="itemHsn" ></td>
+                        <td><input type="text" name="itemUom" ></td>
+                        <td><input type="text" name="itemqty" ></td>
+                        <td><input type="text" name="itemrate" ></td>
+                        <td><input type="text" name="tax"></td>
+                        <td><input type="text" name="itemtotal"></td>
+                    </tr> -->
+
+                </tr>
+
+
+                <!-- <tr class="item">
+                    <td><input type="text" name="itemOne"  placeholder="item Name"></td>
+                    <td>Pcs</td>
+                    <td>HSN1001</td>
+                    <td>5</td>
+                    <td>10</td>
+                    <td>50</td>
+                </tr> -->
+
+            </table>
+            <br>
+            <!-- <table>
+                <tr>
+                    <td>C.GST</td>
+                    <td>2.5 %</td>
+                    <td>3.75</td>
+                </tr>
+                <tr>
+                    <td>S.GST</td>
+                    <td>2.5 %</td>
+                    <td>3.75</td>
+                </tr>
+                <tr>
+                    <td>I.GST</td>
+                    <td>2.5 %</td>
+                    <td>3.75</td>
+                </tr>
+                <tr>
+                    <td>U.GST</td>
+                    <td>2.5 %</td>
+                    <td>3.75</td>
+                </tr>
+
+
+
+
+            </table> -->
+
+
+            <!-- Chk div parameter -->
+            <div class="shade border">Tax Details</div>
+            <!-- <table>
+                <tr class="item-total">
+                    <td colspan="3" style="border-right: none;">CGST</td>
+
+                    <td colspan="3" style="border-left: none;">20</td>
+                </tr>
+                <tr class="item-total">
+                    <td colspan="3" style="border-right: none;">SGST</td>
+                    <td colspan="3" style="border-left: none;">20</td>
+                </tr>
+                <tr class="item-total">
+                    <td colspan="3" style="border-right: none;">IGST</td>
+                    <td colspan="3" style="border-left: none;">20</td>
+                </tr>
+                <tr class="item-total">
+                    <td colspan="3" style="border-right: none;">UGST</td>
+                    <td colspan="3" style="border-left: none;">20</td>
+                </tr>
+                <tr class="item-total">
+                    <td colspan="3" class="shade" style="border-right: none;">Total Tax</td>
+                    <td colspan="3" style="border-left: none; font-weight: 600;">20</td>
+                </tr>
+
+
+
+            </table> -->
+
+            <button type="submit" >Submit</button>
+        </form>
+    </div>
+</body>
+
+<script>
+    const table = document.getElementById('invoiceTable');
+    const itemrowID = document.querySelector('#itemRow');
+    let form = document.querySelector("form");
+    var arr = {};
+
+    // id with date
+    id_date()
+    printVisiblity()
+
+    function id_date(){
+        // gc_id
+        let randomID = (Math.random()*100).toString().split('.')[0];
+        document.querySelector('#gc_id').innerHTML = `G-ID - ${randomID}`;
+        // gc_date
+        let today = new Date().toLocaleDateString();
+        document.querySelector('#gc_date').innerHTML = `${today}`;
+
+    }
+    function printVisiblity(){
+        document.querySelector("#p_btn").addEventListener('click', () => {
+        let allbtn = document.querySelector('.btn');
+        allbtn.style.visibility = 'hidden';
+        window.print();
+        allbtn.style.visibility = 'visible';
+    })
+    }
+    function addRow(){
+        const itemrowCount = table.rows.length;
+         
+        if(itemrowCount<20){
+            const newRow = table.insertRow(-1);
+        newRow.innerHTML = 
+        `
+            <tr class='border'>
+                <td ><input type="text" class="form-itemName" name="itemName" ></td>
+                <td><input type="text" class="form-itemHsn" name="itemHsn" ></td>
+                <td><input type="text" class="form-itemUom" name="itemUom" ></td>
+                <td><input type="text" class="form-itemqty" name="itemqty" ></td>
+                <td><input type="text" class="form-itemrate" name="itemrate" ></td>
+                <td><input type="text" class="form-itemtax" name="tax"></td>
+                <td><input type="text" class="form-itemtotal" name="itemtotal"></td>
+            </tr>
+        `
+        newRow.id = 'itemRow';
+        }        
+    }
+    function deleteRow(){
+        let itemID = document.querySelector('#itemRow');
+        const table = document.getElementById('invoiceTable');
+        // const itemrowID = document.querySelector('#itemRow');
+        if(table.rows.length>6){
+            table.deleteRow(-1);
+        }
+        // newRow.innerHTML = 
+        // `
+        //     <tr>
+        //         <td><input type="text" name="itemName" placeholder="item Name"></td>
+        //         <td><input type="text" name="itemHsn" placeholder="HSN Code"></td>
+        //         <td><input type="text" name="itemUom" placeholder="UOM"></td>
+        //         <td><input type="text" name="itemqty" placeholder="QTY"></td>
+        //         <td><input type="text" name="itemrate" placeholder="RATE"></td>
+        //         <td><input type="text" name="itemtotal" placeholder="TOTAL"></td>
+        //     </tr>
+        // `    
+    }
+    form.addEventListener("submit",(event)=>{
+        let mevent = event.target;
+        
+        // console.log(event.target.itemName.value);
+        // alert(event.target.partyName.value);
+
+        arr = {
+            'Party Name' : mevent.partyName.value,
+            'Party Address' : mevent.partyAddress.value
+        };
+   
+        console.log(arr);
+        event.preventDefault();
+        
+        
+    });
+    function resetForm(){
+        let resetBtn = document.querySelector('#reset_btn');
+        resetBtn.addEventListener('click',(evnet)=>{
+            form.reset()
+        })
+    }
+
+    table.addEventListener('input',(e)=>{
+
+        // if (e.target.classList.contains('form-itemqty') || e.target.contains('.form-itemrate') ) {
+        //         const row   =   e.target.closest('tr');
+        //         const iname =   row.querySelector('.form-itemName').value;
+        //         const ihsn  =   row.querySelector('.form-itemHsn').value;
+        //         const iuom  =   row.querySelector('.form-itemUom').value;
+        //         const iqty  =   row.querySelector('.form-itemqty') .value;
+        //         const irate =   row.querySelector('.form-itemrate').value;
+        //         const itax  =   row.querySelector('.form-itemtax').value;
+        //         const itotal =  row.querySelector('.form-itemtotal');
+                
+        //         itotal.value = (iqty * irate) ;
+        //         // if(iqty !='' ){
+        //         //     console.log(iqty);
+        //         //     // itotal.value = '10';
+        //         //     // itotal.value = (Number(iqty) * Number(irate)) ;
+        //         // }
+                
+        //         // amount.textContent = (quantity * unitPrice).toFixed(2);
+        //         console.log([iname,ihsn,iuom,iqty,irate,itax,itotal]);
+                
+        //         // updateTotals();
+        //     }
+    })
+    function getAllValues() {    
+        var allValues = {};  
+        table.find('input').each(function (index) {
+            console.log(this.val)
+        } )
+        
+        // $("#invoiceTable tr").find("input").each(function( index ) {
+        //     params[index] = $(this).val()
+        // })
+        
+        // console.log(params)
+     
+ }
+    
+   
+    // function Challan(e){
+    //     e.preventDefault()
+    //     let obj={
+    //         itemOne:e.target.itemOne.value
+    //     }
+    //     console.log(obj)
+    // }
+
+</script>
+
+</html>
