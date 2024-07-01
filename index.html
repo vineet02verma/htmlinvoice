@@ -25,60 +25,66 @@
     </div>
 
     <div class="invoice-box">
-        <form action="" >
-        <!-- <form action="" onsubmit="Challan(event)" > -->
+        <form action="">
             <table id="invoiceTable">
-                <tr class="top">
-                    <td colspan="7">
-                        <table class="title">
-                            <tr>
-                                <td colspan="6" class="shade border center bold">
-                                    General Challan
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="5" class="shade center border bold txt-left">
-                                    Aval Fashion House
-                                </td>
-                                <!-- id -->
-                                <td colspan="2" class="shade border txt-right" id="gc_id">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="5" class="shade center border txt-left">
-                                    <p>A-33, NARAINA INDUSTRIAL AREA PAHSE 2</p>
-                                </td>
-                                <!-- date -->
-                                <td colspan="2" class="shade border txt-right" id="gc_date"></td>
-                            </tr>
-                        </table>
+<!-- General Challan -->
+                <tr>
+                    <td colspan="8" class="center border head">
+                        General Challan
                     </td>
                 </tr>
-                <tr class="information">
-                    <td colspan="7">
-                        <table>
-                            <tr>
-                                <td colspan="2" class="shade center bold" style="padding-top: 2px;">
-                                    Party Name
-                                </td>
-                                <td colspan="5"  style="display: flex;">
-                                    <input class="bold" style="width: 100%; text-align: left; padding-left: 10px;" type="text" name="partyName" >
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" class="shade txt-center bold" style="padding-top: 20px;">
-                                    Party Address
-                                </td>
-                                <td colspan="5" style="display: flex;">
-                                    <textarea style="flex-basis: 100%; height: 50px; resize: none; padding: 10px 10px; font-size: 16px;" name="partyAddress"  ></textarea>
-                                </td>
-                            </tr>
-                        </table>
+<!-- Aval Fashion House -->
+                <tr>
+                    <td colspan="6" class="border txt-left shade">
+                        Aval Fashion House
+                    </td>
+                    <!-- id -->
+                    <td colspan="2" class="txt-right" id="gc_id">
                     </td>
                 </tr>
-
-                <tr class="heading shade ">
-                    <td class="center border">ITEM NAME</td>
+<!-- Company Name -->
+                <tr>
+                    <td colspan="6" class="txt-left border shade">
+                        <p>A-33, NARAINA INDUSTRIAL AREA PAHSE 2</p>
+                    </td>
+                    <!-- date -->
+                    <td colspan="2" class="txt-right border" id="gc_date"></td>
+                </tr>
+<!-- Party Name -->
+                <tr>
+                    <td colspan="2" class="border shade" >
+                        Party Name
+                    </td>
+                    <td colspan="3" class="border">
+                        <input type="text" name="partyName" >
+                    </td>
+                    <td colspan="1" class="center border">State</td>
+                    <td colspan="2"class="txt-right">
+                        <input type="number">
+                    </td>
+                </tr>
+<!-- Party Address -->
+                <tr>
+                    <td colspan="2" class="shade">
+                        Party Address
+                    </td>
+                    <td colspan="3">
+                        <textarea name="partyAddress"></textarea>
+                    </td>
+                    <td class="center border">
+                        Type
+                    </td>
+                    <td colspan="2" class="txt-right">
+                        <select name="" id="" style="width: 100%;">
+                            <option value="return">Return</option>
+                            <option value="nonreturn">Non Return</option>
+                        </select>
+                        
+                    </td>
+                </tr>
+<!-- Item Heading & Item Detail -->
+                <tr class="shade ">
+                    <td colspan="2" class="center border">ITEM NAME</td>
                     <td class="center border">HSN CODE</td>
                     <td class="center border">UOM</td>
                     <td class="center border">QTY</td>
@@ -86,38 +92,17 @@
                     <td class="center border">TAX</td>
                     <td class="center border">TOTAL</td>
                 </tr>
-
-                <tr class="border shade">
-                    <!-- <tr class=''>
-                        <td><input type="text" name="itemName" ></td>
-                        <td><input type="text" name="itemHsn" ></td>
-                        <td><input type="text" name="itemUom" ></td>
-                        <td><input type="text" name="itemqty" ></td>
-                        <td><input type="text" name="itemrate" ></td>
-                        <td><input type="text" name="tax"></td>
-                        <td><input type="text" name="itemtotal"></td>
-                    </tr>
-                    <tr class=''>
-                        <td ><input type="text" name="itemName" ></td>
-                        <td><input type="text" name="itemHsn" ></td>
-                        <td><input type="text" name="itemUom" ></td>
-                        <td><input type="text" name="itemqty" ></td>
-                        <td><input type="text" name="itemrate" ></td>
-                        <td><input type="text" name="tax"></td>
-                        <td><input type="text" name="itemtotal"></td>
-                    </tr> -->
-
+<!-- Items -->
+                <tr class=''>
+                    <td colspan="2"><input type="text" name="itemName" ></td>
+                    <td><input type="text" name="itemHsn"></td>
+                    <td><input type="text" name="itemUom"></td>
+                    <td><input type="text" name="itemqty"></td>
+                    <td><input type="text" name="itemrate"></td>
+                    <td><input type="text" name="tax"></td>
+                    <td><input type="text" name="itemtotal"></td>
                 </tr>
 
-
-                <!-- <tr class="item">
-                    <td><input type="text" name="itemOne"  placeholder="item Name"></td>
-                    <td>Pcs</td>
-                    <td>HSN1001</td>
-                    <td>5</td>
-                    <td>10</td>
-                    <td>50</td>
-                </tr> -->
 
             </table>
             <br>
@@ -218,7 +203,7 @@
         newRow.innerHTML = 
         `
             <tr class='border'>
-                <td ><input type="text" class="form-itemName" name="itemName" ></td>
+                <td colspan="2"><input type="text" class="form-itemName" name="itemName" ></td>
                 <td><input type="text" class="form-itemHsn" name="itemHsn" ></td>
                 <td><input type="text" class="form-itemUom" name="itemUom" ></td>
                 <td><input type="text" class="form-itemqty" name="itemqty" ></td>
