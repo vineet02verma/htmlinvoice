@@ -25,7 +25,7 @@
     </div>
 
     <div class="invoice-box">
-        <form action="">
+        <form action="https://script.google.com/macros/s/AKfycbyiEyo8mCLfQoAgCIvAS77afhKY1H2-KzPsb2-alrZgxVugslVTo5c1pWA7ZuqbceY/exec" method="post"  >
             <table id="invoiceTable">
                 <!-- General Challan -->
                 <tr>
@@ -71,7 +71,7 @@
                         <input type="text" name="partyName" style="height: 100%;">
                     </td>
                     <td class="center shade">State</td>
-                    <td colspan="2" class="border" >
+                    <td colspan="2" class="border">
                         <select name="statecode" id="statecode" style="width: 100%; height: 20px;"></select>
                     </td>
                 </tr>
@@ -93,6 +93,9 @@
                         </select>
                     </td>
                 </tr>
+            </table>
+            <br>
+            <table id="itemTable" class="itemTable">
                 <!-- Item Heading & Item Detail -->
                 <tr class="shade item border" style="width: 250px;">
                     <td style="width: 150px;" class="center " colspan="2">ITEM NAME</td>
@@ -105,7 +108,7 @@
                 </tr>
                 <!-- Items -->
                 <tr class='item' id="itemRow0">
-                    <td colspan="2"><input type="text" class="form-itemName" name="itemName"></td>
+                    <td colspan="2"><input type="text" class="form-itemName" name="itemName" ></td>
                     <td><input type="text" class="form-itemHsn" name="itemHsn"></td>
                     <td><input type="text" class="form-itemUom" name="itemUom"></td>
                     <td><input type="number" class="form-itemqty" name="itemqty"></td>
@@ -136,6 +139,7 @@
 
 <script>
     const table = document.getElementById('invoiceTable');
+    const itemTable = document.querySelector("#itemTable");
     const tabletax = document.getElementById('taxDetails');
     const itemrowID = document.querySelector('#itemRow');
     let form = document.querySelector("form");
@@ -143,42 +147,46 @@
     let statecode = document.querySelector("#statecode");
     let returntype = document.querySelector('#returntype');
     let remarks = document.querySelector('#remarks');
-    var finalarr = {};
     let doerarr = ["one", "two", "three", "four"];
-    let stateCode =  [{
-  "State": "JAMMU AND KASHMIR",
-  "Code": "01"
- },
- {
-  "State": "HIMACHAL PRADESH",
-  "Code": "02"
- },
- {
-  "State": "PUNJAB",
-  "Code": '03'
- },
- {
-  "State": "CHANDIGARH",
-  "Code": '04'
- },
- {
-  "State": "UTTARAKHAND",
-  "Code": '05'
- },
- {
-  "State": "HARYANA",
-  "Code": '06'
- },
- {
-  "State": "DELHI",
-  "Code": '07'
- },
+    let stateCode = [
+        {
+            "State": "JAMMU AND KASHMIR",
+            "Code": "01"
+        },
+        {
+            "State": "HIMACHAL PRADESH",
+            "Code": "02"
+        },
+        {
+            "State": "PUNJAB",
+            "Code": '03'
+        },
+        {
+            "State": "CHANDIGARH",
+            "Code": '04'
+        },
+        {
+            "State": "UTTARAKHAND",
+            "Code": '05'
+        },
+        {
+            "State": "HARYANA",
+            "Code": '06'
+        },
+        {
+            "State": "DELHI",
+            "Code": '07'
+        },
 
-];
+    ];
     let itemid = [1];
+    var itemarr = {};
+    var finalarr = []; 
+    var taxarr = [];
+    var iname, hsn, uom, qty, rate, tax, total ;
 
-    document.querySelector("#statecode").onchange = function(){
-        if(statecode.value=="07"){
+    document.querySelector("#statecode").onchange = function () {
+        if (statecode.value == "07") {
             tabletax.innerHTML =
                 `
                 <tr>
@@ -197,7 +205,7 @@
                     <td>100</td>
                 </tr>
             ` }
-        else{
+        else {
             tabletax.innerHTML =
                 `
                 <tr>
@@ -213,13 +221,13 @@
             `
         }
     }
-    function updateStateCode(){
+    function updateStateCode() {
         let scode = [];
         let scodeoption = '';
-        stateCode.forEach((v,i)=>{
-            scode.push( v['Code'] )
+        stateCode.forEach((v, i) => {
+            scode.push(v['Code'])
         })
-        scode.forEach((v,i)=>{
+        scode.forEach((v, i) => {
             scodeoption += `<option value="${v}">${v}</option>`
         })
         statecode.innerHTML = scodeoption;
@@ -250,12 +258,11 @@
         })
     }
     function addRow() {
-        const itemrowCount = table.rows.length;
+        const itemrowCount =  itemTable.rows.length;
         const lstid = itemid.length;
 
-        if (itemrowCount < 20) {
-            const newRow = table.insertRow(-1);
-
+        if (itemrowCount < 15) {
+            const newRow = itemTable.insertRow(-1);
             newRow.innerHTML =
                 `
             <tr class='item' >
@@ -295,7 +302,7 @@
     }
 
     form.addEventListener("submit", (event) => {
-        console.log(table.rows.length);
+        
         event.preventDefault();
         let mevent = event.target;
         let Prepareby = mevent.doerName.value;
@@ -310,59 +317,48 @@
             Prepareby, date, partyname, partyaddress, statecode, returntype, remarks
         };
 
-        console.log(arr);
-
-        for(var i=7; i<=table.rows.length; i++){
+        // console.log(itemTable.rows.length);
+        for (var i = 1; i < itemTable.rows.length; i++) {
             // console.log(i)
-            var rowid = "#itemRow"+(i-7) + " td input";
-            console.log(rowid);
-            var itemrowindex = document.querySelectorAll(rowid)
-            console.log(itemrowindex);
+            // console.log(arr);
+            iname = itemTable.rows[i].cells[0].getElementsByTagName('input')[0].value;
+            hsn = itemTable.rows[i].cells[1].getElementsByTagName('input')[0].value;
+            uom = itemTable.rows[i].cells[2].getElementsByTagName('input')[0].value;
+            qty = itemTable.rows[i].cells[3].getElementsByTagName('input')[0].value;
+            rate = itemTable.rows[i].cells[4].getElementsByTagName('input')[0].value;
+            tax = itemTable.rows[i].cells[5].getElementsByTagName('input')[0].value;
+            total = itemTable.rows[i].cells[6].innerHTML;        
+            itemarr = { iname, hsn, uom, qty, rate, tax, total }
 
-            // itemrowindex.forEach((v,i)=>{
-            //     console.log(v.value);
-            //     // v.onchange = function(e){
-            //     // console.log(e.target.value);
-            //     // }
-            // })
+            finalarr.push({Prepareby, date, partyname, partyaddress, statecode, returntype, remarks , iname, hsn, uom, qty, rate, tax, total})
         }
+    // Data Submit To Google Sheet
+    console.log(finalarr)
 
 
-
-
-        // console.log(table.rows.length);
-        if (table.rows.length > 6) {
-            let row = event.target.closest('tr');
-            // let iname   =  row.querySelector('.form-itemName').value;
-            // let ihsn    =  row.querySelectorAll('.form-itemHsn').value;
-            // let iuom    =  row.querySelectorAll('.form-itemUom').value;
-            // let iqty    =  row.querySelectorAll('.form-itemqty') .value;
-            // let irate   =  row.querySelectorAll('.form-itemrate').value;
-            // let itax    =  row.querySelectorAll('.form-itemtax').value;
-            // let itotal  =  row.querySelectorAll('.form-itemtotal');
-
-            console.log(row)
-        }
 
     });
 
-    table.addEventListener('input', function (event) {
 
-        if (event.target.classList.contains('form-itemqty') || event.target.classList.contains('form-itemrate')) {
+    itemTable.addEventListener('input', function (event) {
 
+        if (event.target.classList.contains('form-itemqty') ||
+            event.target.classList.contains('form-itemrate')) {
             const row = event.target.closest('tr');
             const iqty = row.querySelector('.form-itemqty').value;
             const irate = row.querySelector('.form-itemrate').value;
             const itotal = row.querySelector('.form-itemtotal');
             itotal.innerHTML = (iqty * irate).toFixed(2);
-
-            // const iname =   row.querySelector('.form-itemName').value;
-            // const ihsn  =   row.querySelector('.form-itemHsn').value;
-            // const iuom  =   row.querySelector('.form-itemUom').value;
-            // const itax  =   row.querySelector('.form-itemtax').value;               
+              
             // updateTotals();
         }
     })
+
+    function updateTotals(){
+
+    }
+
+
 
     id_date()
     printVisiblity()
