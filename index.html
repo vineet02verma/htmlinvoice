@@ -20,290 +20,354 @@
         <button id="d_btn" onclick="deleteRow()">Delete Row</button>
         <button id="reset_btn" onclick="resetForm()">Reset</button>
         <button onclick="getAllValues()">Check</button>
-        
+
 
     </div>
 
     <div class="invoice-box">
         <form action="">
             <table id="invoiceTable">
-<!-- General Challan -->
+                <!-- General Challan -->
                 <tr>
-                    <td colspan="8" class="center border head">
+                    <td colspan="5" class="center border shade">
                         General Challan
                     </td>
+                    <td class="center shade border">
+                        Date
+                    </td>
+                    <!-- Date -->
+                    <td class="txt-right" id="gc_date">
+                    </td>
                 </tr>
-<!-- Aval Fashion House -->
+                <!-- Aval Fashion House -->
                 <tr>
-                    <td colspan="6" class="border txt-left shade">
+                    <td colspan="5" class="border txt-left shade padr10">
                         Aval Fashion House
                     </td>
+                    <!-- Prepare By -->
+                    <td class="shade border center">
+                        Prepare By
+                    </td>
                     <!-- id -->
-                    <td colspan="2" class="txt-right" id="gc_id">
+                    <td colspan="2" class="">
+                        <select class="padr5" name="Prepareby" id="doerName" style="width: 100%;">
+                        </select>
                     </td>
                 </tr>
-<!-- Company Name -->
+                <!-- Company Name -->
                 <tr>
-                    <td colspan="6" class="txt-left border shade">
+                    <td colspan="8" class="txt-left shade padr10 border">
                         <p>A-33, NARAINA INDUSTRIAL AREA PAHSE 2</p>
                     </td>
                     <!-- date -->
-                    <td colspan="2" class="txt-right border" id="gc_date"></td>
+                    <!-- <td colspan="2" class="txt-right border" id="gc_date"></td> -->
                 </tr>
-<!-- Party Name -->
-                <tr>
-                    <td colspan="2" class="border shade" >
-                        Party Name
-                    </td>
-                    <td colspan="3" class="border">
-                        <input type="text" name="partyName" >
-                    </td>
-                    <td colspan="1" class="center border">State</td>
-                    <td colspan="2"class="txt-right">
-                        <input type="number">
-                    </td>
-                </tr>
-<!-- Party Address -->
+                <!-- Party Name -->
                 <tr>
                     <td colspan="2" class="shade">
+                        Party Name
+                    </td>
+                    <td colspan="3" class="" style="height: 20px; padding-top: 5px;">
+                        <input type="text" name="partyName" style="height: 100%;">
+                    </td>
+                    <td class="center shade">State</td>
+                    <td colspan="2" class="border" >
+                        <select name="statecode" id="statecode" style="width: 100%; height: 20px;"></select>
+                    </td>
+                </tr>
+                <!-- Party Address -->
+                <tr>
+                    <td colspan="2" class="shade txt-left">
                         Party Address
                     </td>
                     <td colspan="3">
                         <textarea name="partyAddress"></textarea>
                     </td>
-                    <td class="center border">
+                    <td class="center shade">
                         Type
                     </td>
-                    <td colspan="2" class="txt-right">
-                        <select name="" id="" style="width: 100%;">
-                            <option value="return">Return</option>
-                            <option value="nonreturn">Non Return</option>
+                    <td colspan="2" class="border" style="height: 100%;">
+                        <select name="" id="returntype" style="width: 100%;">
+                            <option value="returnable">Returnable</option>
+                            <option value="nonreturnable">Non Returnable</option>
                         </select>
-                        
                     </td>
                 </tr>
-<!-- Item Heading & Item Detail -->
-                <tr class="shade ">
-                    <td colspan="2" class="center border">ITEM NAME</td>
-                    <td class="center border">HSN CODE</td>
-                    <td class="center border">UOM</td>
-                    <td class="center border">QTY</td>
-                    <td class="center border">RATE</td>
-                    <td class="center border">TAX</td>
-                    <td class="center border">TOTAL</td>
+                <!-- Item Heading & Item Detail -->
+                <tr class="shade item border" style="width: 250px;">
+                    <td style="width: 150px;" class="center " colspan="2">ITEM NAME</td>
+                    <td style="width: 150px;" class="center ">HSN CODE</td>
+                    <td style="width: 150px;" class="center ">UOM</td>
+                    <td style="width: 150px;" class="center ">QTY</td>
+                    <td style="width: 150px;" class="center ">RATE</td>
+                    <td style="width: 150px;" class="center ">TAX %</td>
+                    <td style="width: 150px;" class="center ">TOTAL</td>
                 </tr>
-<!-- Items -->
-                <tr class=''>
-                    <td colspan="2"><input type="text" name="itemName" ></td>
-                    <td><input type="text" name="itemHsn"></td>
-                    <td><input type="text" name="itemUom"></td>
-                    <td><input type="text" name="itemqty"></td>
-                    <td><input type="text" name="itemrate"></td>
-                    <td><input type="text" name="tax"></td>
-                    <td><input type="text" name="itemtotal"></td>
+                <!-- Items -->
+                <tr class='item' id="itemRow0">
+                    <td colspan="2"><input type="text" class="form-itemName" name="itemName"></td>
+                    <td><input type="text" class="form-itemHsn" name="itemHsn"></td>
+                    <td><input type="text" class="form-itemUom" name="itemUom"></td>
+                    <td><input type="number" class="form-itemqty" name="itemqty"></td>
+                    <td><input type="number" class="form-itemrate" name="itemrate"></td>
+                    <td><input type="number" class="form-itemtax" name="tax"></td>
+                    <td class="center form-itemtotal">0</td>
                 </tr>
-
-
             </table>
             <br>
-            <!-- <table>
-                <tr>
-                    <td>C.GST</td>
-                    <td>2.5 %</td>
-                    <td>3.75</td>
-                </tr>
-                <tr>
-                    <td>S.GST</td>
-                    <td>2.5 %</td>
-                    <td>3.75</td>
-                </tr>
-                <tr>
-                    <td>I.GST</td>
-                    <td>2.5 %</td>
-                    <td>3.75</td>
-                </tr>
-                <tr>
-                    <td>U.GST</td>
-                    <td>2.5 %</td>
-                    <td>3.75</td>
-                </tr>
-
-
-
-
-            </table> -->
 
 
             <!-- Chk div parameter -->
-            <div class="shade border">Tax Details</div>
-            <!-- <table>
-                <tr class="item-total">
-                    <td colspan="3" style="border-right: none;">CGST</td>
+            <div class="shade border head center">Tax Details</div>
+            <div class="taxDetailsOuter">
+                <table id="taxDetails" class="taxDetails">
+                </table>
+            </div>
 
-                    <td colspan="3" style="border-left: none;">20</td>
-                </tr>
-                <tr class="item-total">
-                    <td colspan="3" style="border-right: none;">SGST</td>
-                    <td colspan="3" style="border-left: none;">20</td>
-                </tr>
-                <tr class="item-total">
-                    <td colspan="3" style="border-right: none;">IGST</td>
-                    <td colspan="3" style="border-left: none;">20</td>
-                </tr>
-                <tr class="item-total">
-                    <td colspan="3" style="border-right: none;">UGST</td>
-                    <td colspan="3" style="border-left: none;">20</td>
-                </tr>
-                <tr class="item-total">
-                    <td colspan="3" class="shade" style="border-right: none;">Total Tax</td>
-                    <td colspan="3" style="border-left: none; font-weight: 600;">20</td>
-                </tr>
+            <div class="shade">
+                <h3>Remarks</h3>
+                <textarea name="remarks" id="remarks" style="width: 100%; height: 50px;"></textarea>
+            </div>
 
-
-
-            </table> -->
-
-            <button type="submit" >Submit</button>
+            <button type="submit">Submit</button>
         </form>
     </div>
 </body>
 
 <script>
     const table = document.getElementById('invoiceTable');
+    const tabletax = document.getElementById('taxDetails');
     const itemrowID = document.querySelector('#itemRow');
     let form = document.querySelector("form");
-    var arr = {};
+    let doername = document.querySelector("#doerName");
+    let statecode = document.querySelector("#statecode");
+    let returntype = document.querySelector('#returntype');
+    let remarks = document.querySelector('#remarks');
+    var finalarr = {};
+    let doerarr = ["one", "two", "three", "four"];
+    let stateCode =  [{
+  "State": "JAMMU AND KASHMIR",
+  "Code": "01"
+ },
+ {
+  "State": "HIMACHAL PRADESH",
+  "Code": "02"
+ },
+ {
+  "State": "PUNJAB",
+  "Code": '03'
+ },
+ {
+  "State": "CHANDIGARH",
+  "Code": '04'
+ },
+ {
+  "State": "UTTARAKHAND",
+  "Code": '05'
+ },
+ {
+  "State": "HARYANA",
+  "Code": '06'
+ },
+ {
+  "State": "DELHI",
+  "Code": '07'
+ },
 
-    // id with date
-    id_date()
-    printVisiblity()
+];
+    let itemid = [1];
 
-    function id_date(){
+    document.querySelector("#statecode").onchange = function(){
+        if(statecode.value=="07"){
+            tabletax.innerHTML =
+                `
+                <tr>
+                    <th>TAX</th>
+                    <th>RATE</th>
+                    <th>Total</th>
+                </tr>
+                <tr class="center">
+                    <td>CGST</td>
+                    <td>2.5</td>
+                    <td>100</td>
+                </tr>
+                <tr class="center">
+                    <td>IGST</td>
+                    <td>2.5</td>
+                    <td>100</td>
+                </tr>
+            ` }
+        else{
+            tabletax.innerHTML =
+                `
+                <tr>
+                    <th>TAX</th>
+                    <th>RATE</th>
+                    <th>Total</th>
+                </tr>
+                <tr class="center">
+                    <td>CGST</td>
+                    <td>2.5</td>
+                    <td>100</td>
+                </tr>
+            `
+        }
+    }
+    function updateStateCode(){
+        let scode = [];
+        let scodeoption = '';
+        stateCode.forEach((v,i)=>{
+            scode.push( v['Code'] )
+        })
+        scode.forEach((v,i)=>{
+            scodeoption += `<option value="${v}">${v}</option>`
+        })
+        statecode.innerHTML = scodeoption;
+
+    }
+    function updateDoerName() {
+        let dname = '';
+        doerarr.forEach((v, i) => {
+            dname += `<option value="${v}">${v}</option>`
+        })
+        doername.innerHTML = dname;
+    }
+    function id_date() {
         // gc_id
-        let randomID = (Math.random()*100).toString().split('.')[0];
-        document.querySelector('#gc_id').innerHTML = `G-ID - ${randomID}`;
+        // let randomID = (Math.random()*100).toString().split('.')[0];
+        // document.querySelector('#gc_id').innerHTML = `G-ID - ${randomID}`;
         // gc_date
         let today = new Date().toLocaleDateString();
         document.querySelector('#gc_date').innerHTML = `${today}`;
 
     }
-    function printVisiblity(){
+    function printVisiblity() {
         document.querySelector("#p_btn").addEventListener('click', () => {
-        let allbtn = document.querySelector('.btn');
-        allbtn.style.visibility = 'hidden';
-        window.print();
-        allbtn.style.visibility = 'visible';
-    })
+            let allbtn = document.querySelector('.btn');
+            allbtn.style.visibility = 'hidden';
+            window.print();
+            allbtn.style.visibility = 'visible';
+        })
     }
-    function addRow(){
+    function addRow() {
         const itemrowCount = table.rows.length;
-         
-        if(itemrowCount<20){
+        const lstid = itemid.length;
+
+        if (itemrowCount < 20) {
             const newRow = table.insertRow(-1);
-        newRow.innerHTML = 
-        `
-            <tr class='border'>
+
+            newRow.innerHTML =
+                `
+            <tr class='item' >
                 <td colspan="2"><input type="text" class="form-itemName" name="itemName" ></td>
                 <td><input type="text" class="form-itemHsn" name="itemHsn" ></td>
                 <td><input type="text" class="form-itemUom" name="itemUom" ></td>
-                <td><input type="text" class="form-itemqty" name="itemqty" ></td>
-                <td><input type="text" class="form-itemrate" name="itemrate" ></td>
-                <td><input type="text" class="form-itemtax" name="tax"></td>
-                <td><input type="text" class="form-itemtotal" name="itemtotal"></td>
+                <td><input type="number" class="form-itemqty" name="itemqty"  id="count"></td>
+                <td><input type="number" class="form-itemrate" name="itemrate" ></td>
+                <td><input type="number" class="form-itemtax" name="tax"></td>
+                <td class="center form-itemtotal" >0</td>
             </tr>
         `
-        newRow.id = 'itemRow';
-        }        
+
+            itemid.push((itemid.length + 1))
+            newRow.id = `itemRow${lstid} `;
+            newRow.classList = "item";
+
+            // let aa = document.querySelectorAll("#count");
+            // aa.onchange = function(){
+            //     console.log(aa);
+            // }
+        }
     }
-    function deleteRow(){
+    function deleteRow() {
         let itemID = document.querySelector('#itemRow');
         const table = document.getElementById('invoiceTable');
-        // const itemrowID = document.querySelector('#itemRow');
-        if(table.rows.length>6){
+
+        if (table.rows.length > 6) {
             table.deleteRow(-1);
         }
-        // newRow.innerHTML = 
-        // `
-        //     <tr>
-        //         <td><input type="text" name="itemName" placeholder="item Name"></td>
-        //         <td><input type="text" name="itemHsn" placeholder="HSN Code"></td>
-        //         <td><input type="text" name="itemUom" placeholder="UOM"></td>
-        //         <td><input type="text" name="itemqty" placeholder="QTY"></td>
-        //         <td><input type="text" name="itemrate" placeholder="RATE"></td>
-        //         <td><input type="text" name="itemtotal" placeholder="TOTAL"></td>
-        //     </tr>
-        // `    
     }
-    form.addEventListener("submit",(event)=>{
-        let mevent = event.target;
-        
-        // console.log(event.target.itemName.value);
-        // alert(event.target.partyName.value);
-
-        arr = {
-            'Party Name' : mevent.partyName.value,
-            'Party Address' : mevent.partyAddress.value
-        };
-   
-        console.log(arr);
-        event.preventDefault();
-        
-        
-    });
-    function resetForm(){
+    function resetForm() {
         let resetBtn = document.querySelector('#reset_btn');
-        resetBtn.addEventListener('click',(evnet)=>{
+        resetBtn.addEventListener('click', (evnet) => {
             form.reset()
         })
     }
 
-    table.addEventListener('input',(e)=>{
+    form.addEventListener("submit", (event) => {
+        console.log(table.rows.length);
+        event.preventDefault();
+        let mevent = event.target;
+        let Prepareby = mevent.doerName.value;
+        let date = new Date().toLocaleString();
+        let partyname = mevent.partyName.value;
+        let partyaddress = mevent.partyAddress.value;
+        let statecode = mevent.statecode.value;
+        let returntype = mevent.returntype.value;
+        let remarks = mevent.remarks.value;
 
-        // if (e.target.classList.contains('form-itemqty') || e.target.contains('.form-itemrate') ) {
-        //         const row   =   e.target.closest('tr');
-        //         const iname =   row.querySelector('.form-itemName').value;
-        //         const ihsn  =   row.querySelector('.form-itemHsn').value;
-        //         const iuom  =   row.querySelector('.form-itemUom').value;
-        //         const iqty  =   row.querySelector('.form-itemqty') .value;
-        //         const irate =   row.querySelector('.form-itemrate').value;
-        //         const itax  =   row.querySelector('.form-itemtax').value;
-        //         const itotal =  row.querySelector('.form-itemtotal');
-                
-        //         itotal.value = (iqty * irate) ;
-        //         // if(iqty !='' ){
-        //         //     console.log(iqty);
-        //         //     // itotal.value = '10';
-        //         //     // itotal.value = (Number(iqty) * Number(irate)) ;
-        //         // }
-                
-        //         // amount.textContent = (quantity * unitPrice).toFixed(2);
-        //         console.log([iname,ihsn,iuom,iqty,irate,itax,itotal]);
-                
-        //         // updateTotals();
-        //     }
+        let arr = {
+            Prepareby, date, partyname, partyaddress, statecode, returntype, remarks
+        };
+
+        console.log(arr);
+
+        for(var i=7; i<=table.rows.length; i++){
+            // console.log(i)
+            var rowid = "#itemRow"+(i-7) + " td input";
+            console.log(rowid);
+            var itemrowindex = document.querySelectorAll(rowid)
+            console.log(itemrowindex);
+
+            // itemrowindex.forEach((v,i)=>{
+            //     console.log(v.value);
+            //     // v.onchange = function(e){
+            //     // console.log(e.target.value);
+            //     // }
+            // })
+        }
+
+
+
+
+        // console.log(table.rows.length);
+        if (table.rows.length > 6) {
+            let row = event.target.closest('tr');
+            // let iname   =  row.querySelector('.form-itemName').value;
+            // let ihsn    =  row.querySelectorAll('.form-itemHsn').value;
+            // let iuom    =  row.querySelectorAll('.form-itemUom').value;
+            // let iqty    =  row.querySelectorAll('.form-itemqty') .value;
+            // let irate   =  row.querySelectorAll('.form-itemrate').value;
+            // let itax    =  row.querySelectorAll('.form-itemtax').value;
+            // let itotal  =  row.querySelectorAll('.form-itemtotal');
+
+            console.log(row)
+        }
+
+    });
+
+    table.addEventListener('input', function (event) {
+
+        if (event.target.classList.contains('form-itemqty') || event.target.classList.contains('form-itemrate')) {
+
+            const row = event.target.closest('tr');
+            const iqty = row.querySelector('.form-itemqty').value;
+            const irate = row.querySelector('.form-itemrate').value;
+            const itotal = row.querySelector('.form-itemtotal');
+            itotal.innerHTML = (iqty * irate).toFixed(2);
+
+            // const iname =   row.querySelector('.form-itemName').value;
+            // const ihsn  =   row.querySelector('.form-itemHsn').value;
+            // const iuom  =   row.querySelector('.form-itemUom').value;
+            // const itax  =   row.querySelector('.form-itemtax').value;               
+            // updateTotals();
+        }
     })
-    function getAllValues() {    
-        var allValues = {};  
-        table.find('input').each(function (index) {
-            console.log(this.val)
-        } )
-        
-        // $("#invoiceTable tr").find("input").each(function( index ) {
-        //     params[index] = $(this).val()
-        // })
-        
-        // console.log(params)
-     
- }
-    
-   
-    // function Challan(e){
-    //     e.preventDefault()
-    //     let obj={
-    //         itemOne:e.target.itemOne.value
-    //     }
-    //     console.log(obj)
-    // }
+
+    id_date()
+    printVisiblity()
+    updateDoerName()
+    updateStateCode()
 
 </script>
 
